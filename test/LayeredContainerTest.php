@@ -3,8 +3,8 @@
 use E1Stuff\LayeredContainer\LayeredContainer;
 use E1Stuff\LayeredContainer\Test\Fake\Helper;
 use E1Stuff\LayeredContainer\Test\Fake\Service;
-use E1Stuff\LayeredContainer\Test\Fake\Storage;
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 /**
  * Date: 25.10.15
@@ -102,7 +102,7 @@ class LayeredContainerTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function it_should_auto_inject_dependencies_from_local_container()
+    public function it_should_not_auto_inject_dependencies_from_local_container_into_services_from_parent_container()
     {
         $this->local->singleton(Helper::class, function() {
             return new Helper(uniqid());
@@ -112,10 +112,7 @@ class LayeredContainerTest extends \PHPUnit_Framework_TestCase
             return $c->build(Service::class);
         });
 
-        /** @var Service $service */
-        $service = $this->local->make(Service::class);
-        $this->assertInstanceOf(Service::class, $service);
-
-        $this->assertEquals($this->local->make(Helper::class)->key, $service->helper->key);
+        $this->setExpectedException(BindingResolutionException::class);
+        $this->local->make(Service::class);
     }
 }
