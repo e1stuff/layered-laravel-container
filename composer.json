@@ -1,0 +1,24 @@
+{
+    "name": "e1stuff/layered-laravel-container",
+    "description": "Library allows to use nested Laravel service containers for different environments (global + one container per environment)",
+    "require": {
+        "illuminate/container": "^5.2@dev"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "e1himself",
+            "email": "ivan.voskoboinyk@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "E1Stuff\\LayeredContainer\\": "src/",
+            "E1Stuff\\LayeredContainer\\Test\\": "test/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0"
+    }
+}
